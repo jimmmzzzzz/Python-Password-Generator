@@ -1,5 +1,6 @@
-import random
+import secrets
 import string
+
 
 def generate_password():
     print("\n=== PASSWORD GENERATOR ===")
@@ -29,7 +30,7 @@ def generate_password():
     if use_symbols:
         characters += string.punctuation
 
-    password = "".join(random.choice(characters) for _ in range(length))
+    password = "".join(secrets.choice(characters) for _ in range(length))
 
     print("\nGenerated Password:")
     print(password)
