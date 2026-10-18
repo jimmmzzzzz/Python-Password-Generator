@@ -30,7 +30,23 @@ def generate_password():
     if use_symbols:
         characters += string.punctuation
 
-    password = "".join(secrets.choice(characters) for _ in range(length))
+    required_characters = [secrets.choice(string.ascii_lowercase)]
+
+    if use_uppercase:
+        required_characters.append(secrets.choice(string.ascii_uppercase))
+
+    if use_numbers:
+        required_characters.append(secrets.choice(string.digits))
+
+    if use_symbols:
+        required_characters.append(secrets.choice(string.punctuation))
+
+    remaining_length = length - len(required_characters)
+    password_characters = required_characters + [
+        secrets.choice(characters) for _ in range(remaining_length)
+    ]
+    secrets.SystemRandom().shuffle(password_characters)
+    password = "".join(password_characters)
 
     print("\nGenerated Password:")
     print(password)
